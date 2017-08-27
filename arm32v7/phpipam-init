@@ -1,0 +1,24 @@
+#!/bin/bash
+
+FIRST_TIME_LOCKED=/config/phpipam-init.lock
+
+if [ ! -f $FIRST_TIME_LOCKED ]
+then
+  echo "Setting up phpIPAM configuration file and its database connection ..."
+  echo "PHPIPAM_DB_HOST = $PHPIPAM_DB_HOST"
+  echo "PHPIPAM_DB_USER = $PHPIPAM_DB_USER"
+  echo "PHPIPAM_DB_PASS = $PHPIPAM_DB_PASS"
+  echo "PHPIPAM_DB_NAME = $PHPIPAM_DB_NAME"
+
+  cd /var/www/html
+  cp -p config.dist.php config.php
+  sed -i -e "s/db\['host'\] = 'localhost';/db\['host'\] = '$PHPIPAM_DB_HOST';/g" config.php && \
+  sed -i -e "s/db\['user'\] = 'phpipam';/db\['user'\] = '$PHPIPAM_DB_USER';/g" config.php && \
+  sed -i -e "s/db\['pass'\] = 'phpipamadmin';/db\['pass'\] = '$PHPIPAM_DB_PASS';/g" config.php && \
+  sed -i -e "s/db\['name'\] = 'phpipam';/db\['name'\] = '$PHPIPAM_DB_NAME';/g" config.php
+
+else
+  echo "phpIPAM initialization has been done already ..."
+fi
+
+exit 0
