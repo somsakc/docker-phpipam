@@ -12,7 +12,7 @@ services:
        volumes:
          - /home/docker/phpipam/data:/var/lib/mysql
        networks:
-         - back-tier
+         - phpipam-tier
        restart: always
 
   phpipamap:
@@ -24,7 +24,7 @@ services:
          - PHPIPAM_DB_NAME=phpipam
          - TZ=Asia/Bangkok
        networks:
-         - back-tier
+         - phpipam-tier
        ports:
          - "8082:80"
        restart: always
@@ -32,6 +32,6 @@ services:
          - phpipamdb
 
 networks:
-  back-tier:
+  phpipam-tier:
       driver: bridge
 
