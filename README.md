@@ -27,5 +27,5 @@ docker run -d --name phpipamap \
   mbixtech/arm32v7-phpipam
 ```
 
-Credits
+# Credits
 * phpIPAM IPAM IP address management software from https://phpipam.net/.
